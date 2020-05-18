@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#lunboBox {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    border: 1px solid black;
+    margin: 50px auto;
+    background-size:cover;
+    background-repeat:no-repeat;
+    /*transition: all .3s;*/
+}
+
+#lunboBox div:not(:last-of-type) {
+    cursor: pointer;
+    position: absolute;
+    z-index: 3;
+}
+#next {
+    right: 0;
+    top: calc(50% - 30px);
+}
+#prev {
+    left:0;
+    top: calc(50% - 30px);
+}
+#yuanDian {
+    width: 110px;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    margin: 470px auto 0;
+}
+#lunboBox ul {
+    height: 10px;
+    width: 110px;
+}
+#lunboBox li {
+    cursor: pointer;
+    list-style-type: none;
+    float: left;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    opacity: .5;
+    margin-left: 8px;
+}
+
+.choose,#lunboBox li:hover {
+    opacity: 1 !important;
+}

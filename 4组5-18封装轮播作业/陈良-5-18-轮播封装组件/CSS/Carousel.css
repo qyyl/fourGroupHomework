@@ -1,0 +1,62 @@
+@charset "UTF-8";
+.width_1349{
+    width: 1349px;
+    margin: 0 auto;
+}
+#lunbo{
+    width: 500px;
+    height: 400px;
+    margin: 100px auto;
+    overflow: hidden;
+    position: relative;
+}
+#lunbo .btn{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    top: 175px;
+    background-color: rgba(0,0,0,0);
+    border-radius: 3px;
+    /*visibility: hidden;*/
+    transition: all .3s linear;
+}
+#lunbo:hover .btn{
+    background-color: rgba(0,0,0,.5);
+}
+#lunbo #nextBtn{
+    right: 0;
+}
+#imgBox{
+    overflow: hidden;
+    width: 2500px;
+    transition: all .3s linear;
+    /*margin-left: 20px;*/
+}
+#imgBox img{
+    width: 500px;
+    height: 400px;
+    float: left;
+}
+#dians{
+    position: absolute;
+    overflow: hidden;
+    bottom: 30px;
+    left: 150px;
+}
+#dians>li{
+    float: left;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-left: 20px;
+    list-style: none;
+    cursor: pointer;
+}
+.backgroudwhite{
+    background-color: white;
+}

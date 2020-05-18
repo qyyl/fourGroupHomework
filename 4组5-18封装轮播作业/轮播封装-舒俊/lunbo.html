@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/lunbo.css">
+</head>
+<body>
+<div id="lunboBox"></div>
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/lunbo.js"></script>
+<script>
+    lunbo.init({
+        Element:$("#lunboBox"),//要设置轮播的盒子
+        imgData:["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg"],//图片路径
+        Auto:true,//是否轮播
+        time:2000,//单位毫秒，延迟时间
+        displayYuan:true,//是否显示圆点
+        current:1 //从第几张开始
+    });
+</script>
+</body>
+</html>
