@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#lunBo{
+    width: 650px;
+    height: 360px;
+    position:relative;
+    overflow: hidden;
+    margin:100px auto;
+}
+#displayImg{
+    float: left;
+    height: 360px;
+    margin-left:0;
+}
+#displayImg img{
+    display: block;
+    float: left;
+    width: 650px;
+    height:360px;
+}
+#left,#right{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 150px;
+}
+#left{
+    left: 0;
+}
+#right{
+    right: 0;
+}
+.hide{
+    display: none;
+}
+
