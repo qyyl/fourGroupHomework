@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*#txtContent,#outPut{*/
+            /*!*width: 200px;*!*/
+            /*!*height: 100px;*!*/
+            /*margin-top: 50px;*/
+            /*margin-bottom: 50px;*/
+        /*}*/
+        /*#outPut{*/
+            /*!*border: 1px solid black;*!*/
+        /*}*/
+      
+    </style>
+</head>
+<body>
+<div>
+    <textarea name="" id="txtContent" cols="25" rows="6"></textarea>
+</div>
+<div>
+    <input type="text" id="txtFilter">
+    <button type="button" id="btnSearch">搜索</button>
+</div>
+<div id="outPut">
+
+</div>
+<script type="text/javascript">
+    (function () {
+        var showArr=[];
+        document.getElementById("btnSearch").onclick=seaech;
+        function seaech() {
+            document.getElementById("outPut").value="";
+            var txtContent = document.getElementById("txtContent").value;
+            var txt = document.getElementById("txtFilter").value;
+            txtContentArr = txtContent.split(",");
+            console.log(txtContentArr);
+                contrast(txt);
+                xianshi();
+        }
+        //对比
+        function contrast(text) {
+            for (var i=0;i<txtContentArr.length;i++){
+                if(txtContentArr[i].indexOf(text)>=0){
+                    showArr.push(txtContentArr[i]);
+                }
+            }
+        }
+        //显示
+        function xianshi() {
+            for (var i =0;i< showArr.length;i++){
+                document.getElementById("outPut").innerHTML+=(`<span>${showArr[i]},</span>`)
+            }
+        }
+    })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
