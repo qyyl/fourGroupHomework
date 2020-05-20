@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <textarea name="" id="emailList" cols="30" rows="5"></textarea><br>
+    <input type="text" id="searchText"><br>
+    <button type="button" id="searchBtn">搜索</button><br>
+</div>
+<div id="showResult"></div>
+<script src="js/factory.js"></script>
+<script type="text/javascript">
+//    searchBtn.onclick = factory;
+//console.log(search);
+//console.log(searchEmail);
+searchEmail.init({
+        emailId:"emailList",
+        searchContentId:"searchText",
+        searchButtonId:"searchBtn",
+        displayResultId:"showResult"
+    });
+//    emailList,searchText,searchBtn,showResult
+//1771378449@qq.com,
+//cyllh@qq.com,
+//chenliang@qq.com,
+//qyyl@qq.com
+</script>
+</body>
+</html>
