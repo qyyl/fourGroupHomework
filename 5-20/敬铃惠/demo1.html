@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<textarea name="emailAll" cols="30" rows="10" id="emailAll"></textarea><br>
+<input type="text" id="keyWord">
+<button id="searchBtn">搜索</button>
+<div id="resultBox"></div>
+
+<script src="js/demo1.js"></script>
+<script type="text/javascript">
+    $("searchBtn").onclick = function () {
+        var emailArr = $("emailAll").value.split("\n");
+        var keyWord = $("keyWord").value;
+        var resultArr = searchEmail(emailArr,keyWord);
+        $("resultBox").innerHTML = resultArr.join("<br>");
+    }
+    function $(id) {
+        return document.getElementById(id);
+    }
+</script>
+
+</body>
+</html>

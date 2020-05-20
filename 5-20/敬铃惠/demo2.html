@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="js/demo2.js"></script>
+<script type="text/javascript">
+    var backGround = [
+        {name:"张三",age:"18",sex:"男"},
+        {name:"李四",age:"16",sex:"女"},
+        {name:"王五",age:"21",sex:"男"}
+    ];
+    var changeKey = {name:"stuname",age:"stuage",sex:"stusex"};
+    var foreGround = dataAdapter(backGround,changeKey);
+    console.log(foreGround);
+</script>
+
+</body>
+</html>
