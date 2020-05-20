@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="">
+    <input type="text" id="save">
+    <button type="button" id="btnSave">保存</button>
+    <div id="list">
+
+    </div>
+    <input type="text" id="search">
+    <button type="button" id="btnSer">搜索</button>
+    <div id="result"></div>
+</form>
+
+
+<script src="js/jquery-3.4.1.js"></script>
+<script src="2.js"></script>
+<script>
+var emailArr = ["1319870047@qq.com","2951934543@qq.com","18382103815@163.com","1319870047@sina.com"];
+
+//添加邮箱
+$("#btnSave").click(function () {
+    var save = $("#save").val();
+    saveEmail(save);
+});
+
+function saveEmail(save) {
+    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    if (!reg.test(save)) {
+        alert("邮箱格式不正确，请重新输入");
+        return;
+    }else{
+        emailArr.push(save);
+        displayArr();
+    }
+}
+function displayArr() {
+    $("#list").empty();
+    for(var i=0;i<emailArr.length;i++){
+        $("#list").append(`<p>${emailArr[i]}</p>`);
+    }
+}
+
+//搜索邮箱
+$("#btnSer").click(function () {
+    var ser = $("#search").val();
+    if (ser==""){
+        return
+    }
+    var result = search(emailArr, ser);
+    $("#result").empty();
+    for(var i=0;i<result.length;i++){
+        $("#result").append(`<p>${result[i]}</p>`);
+    }
+});
+
+function search(list, keyWord) {
+    var reg =  new RegExp(keyWord);
+    var arr = [];
+    for (var i = 0; i < list.length; i++) {
+        if (reg.test(list[i])) {
+            arr.push(list[i]);
+        }
+    }
+    return arr;
+}
+
+displayArr()
+</script>
+</body>
+</html>
