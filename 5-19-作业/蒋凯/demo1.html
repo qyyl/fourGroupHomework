@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #result {
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<textarea name="" id="import" cols="30" rows="10">
+
+</textarea> <br>
+<div id="operate">
+    搜索:<input type="text" id="search"> <br>
+    <button id="btn">搜索</button>
+</div>
+<div id="result">
+
+</div>
+</body>
+<script type="text/javascript">
+    //获取文本框的值
+    var wenBenText = document.getElementById("import").value;
+    //获取搜索框的值
+    var searchText = document.getElementById("search").value;
+    //给搜索按钮添加点击事件
+   document.getElementById("btn").onclick = function () {
+       //判断文本框的值
+       if (wenBenText.length > 0){
+           //将文本框里面的值按照逗号分割成为数组
+           var wenBenArr = wenBenText.split(",");
+           var result = getText(wenBenArr,searchText);
+           getResult(newArr);
+       }else {
+           alert("请输入值！");
+       }
+   };
+    //得到的文本框与搜索框里 匹配的值（数组）  形参：分割后的数组  搜索框文本的值
+    function getText(wenBenArr,searchText) {
+        //申明一个新数组
+        var newArr = [];
+        for (var i = 0;i < wenBenArr.length;i++){
+            //判断 搜索框里的值 是否 出现在文本框当中
+            if (wenBenArr[i].indexOf(searchText) >= 0){
+                //将符合的值存入 新数组中
+                newArr.push(wenBenArr[i]);
+            }
+            //判断文本框输入的邮件格式
+            var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            for (var j = 0;j < newArr.length;j++){
+                if (!reg.test(newArr[i])){
+                    alert("邮箱格式输入 不正确");
+                }
+            }
+        }
+        return newArr;
+    }
+    //将最后的结果存入盒子中
+    function getResult(newArr) {
+        document.getElementById("result").innerHTML = `<p>${newArr}</p>`;
+    }
+</script>
+</html>
