@@ -20,56 +20,67 @@
 <script src="js/jquery-3.4.1.js"></script>
 <script src="2.js"></script>
 <script>
-var emailArr = ["1319870047@qq.com","2951934543@qq.com","18382103815@163.com","1319870047@sina.com"];
+    (function () {
+        var emailArr = ["1319870047@qq.com","2951934543@qq.com","18382103815@163.com","1319870047@sina.com"];
+        var email ={
+            init:function () {
+                email.displayArr();
+                email.addClick();
 
-//添加邮箱
-$("#btnSave").click(function () {
-    var save = $("#save").val();
-    saveEmail(save);
-});
+            },
+            addClick:function () {
+                //添加邮箱
+                $("#btnSave").click(function () {
+                    var save = $("#save").val();
+                    email.saveEmail(save);
+                });
+                //搜索邮箱
+                $("#btnSer").click(function () {
+                    var ser = $("#search").val();
+                    if (ser==""){
+                        return
+                    }
+                    var result = email.search(emailArr, ser);
+                    $("#result").empty();
+                    for(var i=0;i<result.length;i++){
+                        $("#result").append(`<p>${result[i]}</p>`);
+                    }
+                });
+            },
+            saveEmail:function (save) {
+                var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+                if (!reg.test(save)) {
+                    alert("邮箱格式不正确，请重新输入");
+                    return;
+                }else{
+                    emailArr.push(save);
+                    email.displayArr();
+                }
+            },
+            displayArr:function () {
+                $("#list").empty();
+                for(var i=0;i<emailArr.length;i++){
+                    $("#list").append(`<p>${emailArr[i]}</p>`);
+                }
+            },
+            search:function (list, keyWord) {
+                var reg =  new RegExp(keyWord);
+                var arr = [];
+                for (var i = 0; i < list.length; i++) {
+                    if (reg.test(list[i])) {
+                        arr.push(list[i]);
+                    }
+                }
+                return arr;
+            }
+        };
+        window.email = {email:email.init}
+    })();
 
-function saveEmail(save) {
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-    if (!reg.test(save)) {
-        alert("邮箱格式不正确，请重新输入");
-        return;
-    }else{
-        emailArr.push(save);
-        displayArr();
-    }
-}
-function displayArr() {
-    $("#list").empty();
-    for(var i=0;i<emailArr.length;i++){
-        $("#list").append(`<p>${emailArr[i]}</p>`);
-    }
-}
+email.email();
 
-//搜索邮箱
-$("#btnSer").click(function () {
-    var ser = $("#search").val();
-    if (ser==""){
-        return
-    }
-    var result = search(emailArr, ser);
-    $("#result").empty();
-    for(var i=0;i<result.length;i++){
-        $("#result").append(`<p>${result[i]}</p>`);
-    }
-});
 
-function search(list, keyWord) {
-    var reg =  new RegExp(keyWord);
-    var arr = [];
-    for (var i = 0; i < list.length; i++) {
-        if (reg.test(list[i])) {
-            arr.push(list[i]);
-        }
-    }
-    return arr;
-}
 
-displayArr()
 </script>
 </body>
 </html>
