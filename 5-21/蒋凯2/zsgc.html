@@ -27,7 +27,7 @@
             <td>{{item.id}}</td>
             <td>{{item.stuName}}</td>
             <td>{{item.age}}</td>
-            <td><span @click="editDate(item)"> 修改</span> <span @click="del(index)">删除</span></td>
+            <td><span @click="getDate(index)"> 修改</span> <span @click="del(index)">删除</span></td>
         </tr>
         </tbody>
     </table>
@@ -38,10 +38,11 @@
         <button @click="add()">添加</button>
     </div>
     <div class="content">
-        ID：<input type="text" v-model="edit.id"> <br>
-       姓名： <input type="text" v-model="edit.stuName" /> <br>
-        年龄：<input type="text" v-model="edit.age" /> <br>
-        <button @click="upData()">修改</button>
+        <!--ID：<input type="text" v-model="edit.id"> <br>-->
+       姓名： <input type="text" v-model="upName" /> <br>
+        年龄：<input type="text" v-model="upAge" /><br>
+        下标：<input type="text" v-model="upindex" /><br>
+        <button @click="upStuData()">修改</button>
     </div>
 </div>
 </body>
@@ -58,31 +59,34 @@
                {id:3,stuName:'李大家',age:23}
            ],
             searchName:"",
-            edit:{}
+
+            upName:"",
+            upAge:"",
+            upindex:""
         },
         methods:{
-        del:function (index) {
-            this.studentList.splice(index,1);
-        },
+            del:function (index) {
+                this.studentList.splice(index,1);
+            },
             add:function () {
               this.studentList.push(this.newStudents);
               this.newStudents={};
+            },
+            getDate(index){
+                this.upName = this.studentList[index].stuName;
+                this.upAge = this.studentList[index].age;
+                this.upindex = index;
+            },
+            upStuData(){
+                this.studentList[this.upindex].stuName = this.upName;
+                this.studentList[this.upindex].age = this.upAge;
+                this.upName = "";
+                this.upAge = "";
+                this.upindex = "";
             }
+
         },
-        editDate(item){
-          this.edit = {
-              id:item.id,
-              stuName:item.stuName,
-              age:item.age
-          }
-        },
-        upData:function () {
-            for (var i = 0; i < this.studentList.length; i++) {
-                if (this.studentList[i].id == this.edit.id) {
-                    this.studentList[i] = this.edit;
-                }
-            }
-        },
+
         computed:{
             getStudentListBySearch(){
                 var search = this.searchName;
@@ -100,5 +104,7 @@
         }
 
     });
+    var arr = [1,{id:1,name:"zhangshan"},3,4,]
+    arr[1]
 </script>
 </html>

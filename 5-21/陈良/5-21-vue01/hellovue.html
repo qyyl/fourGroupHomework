@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--<input type="text" v-model="username">-->
+    <!--<span v-text="username"></span>-->
+    <div :class="[classname,{ye:isclass2}]"></div>
+    <!--{{hello}}-->
+</div>
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            username:"",
+            classname:"red",
+            class2:"ye",
+            isclass2:true,
+            hello:"hello vue.js"
+        }
+    })
+    console.log(app.hello);
+</script>
+</body>
+</html>
