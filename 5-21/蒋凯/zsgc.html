@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tbody:empty:after{
+            content: '没有找到任何内容';
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="searchName">
+    <br>
+    <table border="1" cellspacing="0" cellpadding="10">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,index) in getStudentListBySearch">
+            <td>{{item.id}}</td>
+            <td>{{item.stuName}}</td>
+            <td>{{item.age}}</td>
+            <td><span @click="editDate(item)"> 修改</span> <span @click="del(index)">删除</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        ID：<input type="text" v-model="newStudents.id"> <br>
+        姓名：<input type="text" v-model="newStudents.stuName"> <br>
+         年龄：<input type="text" v-model="newStudents.age"> <br>
+        <button @click="add()">添加</button>
+    </div>
+    <div class="content">
+        ID：<input type="text" v-model="edit.id"> <br>
+       姓名： <input type="text" v-model="edit.stuName" /> <br>
+        年龄：<input type="text" v-model="edit.age" /> <br>
+        <button @click="upData()">修改</button>
+    </div>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+    var myVue = new Vue({
+       el:'#app',
+        data:{
+            newStudents:{
+                id:'',stuName:'',age:''},
+           studentList:[
+               {id:1,stuName:'吴小家',age:12},
+               {id:2,stuName:'陈小家',age:18},
+               {id:3,stuName:'李大家',age:23}
+           ],
+            searchName:"",
+            edit:{}
+        },
+        methods:{
+        del:function (index) {
+            this.studentList.splice(index,1);
+        },
+            add:function () {
+              this.studentList.push(this.newStudents);
+              this.newStudents={};
+            }
+        },
+        editDate(item){
+          this.edit = {
+              id:item.id,
+              stuName:item.stuName,
+              age:item.age
+          }
+        },
+        upData:function () {
+            for (var i = 0; i < this.studentList.length; i++) {
+                if (this.studentList[i].id == this.edit.id) {
+                    this.studentList[i] = this.edit;
+                }
+            }
+        },
+        computed:{
+            getStudentListBySearch(){
+                var search = this.searchName;
+                return this.studentList.filter(function (item) {
+                    return item.stuName.indexOf(search)>=0
+                })
+//                var arr = [];
+//                for (var i = 0;i < this.studentList.length;i++){
+//                    if (this.studentList[i].stuName.indexOf(search) >=0 ){
+//                        arr.push(this.studentList[i]);
+//                    }
+//                }
+//                return arr;
+            }
+        }
+
+    });
+</script>
+</html>
