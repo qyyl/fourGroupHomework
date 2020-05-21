@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .red{
+            background-color: red;
+        }
+        .green{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    {{message}}
+    {{lalala}}
+    <p v-text="lalala"></p>
+    <p v-html="lalala"></p>
+    <p v-show="text1">今天天气真好</p>
+    <p v-if="text2">好开心</p>
+    <p v-if="score>100">输入错误</p>
+    <p v-else-if="score>=90 && score<=100">A</p>
+    <p v-else-if="score>=80 && score<90">B</p>
+    <p v-else-if="score>=70 && score<80">C</p>
+    <p v-else-if="score>=60 && score<70">D</p>
+    <p v-else>E</p>
+    <ul>
+        <li v-for="item in studentArr">
+            姓名：{{item.name}} 年龄：{{item.age}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(val,key,index) in studentArr[0]" :key="index">
+            {{key}} {{val}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(val,index) in studentArr" :key="index">
+            {{val}} {{index}}
+        </li>
+    </ul>
+    <span :class="class1">嘿嘿嘿</span>
+    <span :class="[class1]">哈哈哈</span>
+    <span :class="[class1,class2]">呵呵呵</span>
+    <span :class="[class1,{green:isGreen}]">吼吼吼</span>
+    <br>
+    <input type="text" v-model="username" placeholder="用户名">
+    {{username}}
+</div>
+
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            message:"hello vue.js",
+            lalala:"<h1>hahaha</h1>",
+            text1:false,
+            text2:false,
+            score:87,
+            studentArr:[{name:"张三",age:18},
+                {name:"李四",age:28},
+                {name:"王五",age:38}],
+            class1:"red",
+            class2:"green",
+            isGreen:true,
+            username:""
+        }
+    })
+</script>
+</body>
+</html>

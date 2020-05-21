@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #app{
+            width: 400px;
+        }
+        tbody:empty:before{
+            content: "搜索为空";
+        }
+        table{
+            width: 100%;
+        }
+        table td{
+            text-align: center;
+        }
+        #modifyStu{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h3>学生列表</h3>
+    <hr>
+    <input type="text" placeholder="请输入姓名" v-model="searchName">
+    <table>
+        <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,index) in getStudentBySearch">
+            <td>{{item.name}}</td>
+            <td>{{item.age}}</td>
+            <td>{{item.sex}}</td>
+            <td><button @click="modify(index)" >编辑</button> <button @click="delStu(index)">删除</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <form>
+        <input type="text" placeholder="姓名" v-model="stuName"><br>
+        <input type="number" placeholder="年龄" v-model="stuAge"><br>
+        <select name="stuSex" id="stuSex" v-model="stuSex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+        <button type="button" @click="addStu()" id="addStu">添加</button>
+        <button type="button" @click="modifyStu()" id="modifyStu">确定</button>
+        <button type="button" @click="initForm()">取消</button>
+    </form>
+</div>
+
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            studentArr:[{name:"张三",age:18,sex:"男"},
+                {name:"李四",age:15,sex:"女"},
+                {name:"王五",age:16,sex:"女"},
+                {name:"李九",age:28,sex:"男"},
+                {name:"王三",age:26,sex:"女"},
+                {name:"王老吉",age:22,sex:"女"},
+                {name:"邓秋雨",age:18,sex:"女"},
+                {name:"杨兴蕾",age:18,sex:"女"}],
+            searchName:"",
+            stuName:"",
+            stuAge:"",
+            stuSex:"",
+            modifyStudentName:"",
+            modifyStudentAge:"",
+            modifyStudentSex:"",
+            searchArr:""
+        },
+        methods:{
+            delStu(index){
+                this.studentArr.splice(index,1);
+                this.initForm();
+            },
+            addStu(){
+                if(this.stuName && this.stuAge && this.stuSex){
+                    var newStu = new Object();
+                    newStu.name = this.stuName;
+                    newStu.age = this.stuAge;
+                    newStu.sex = this.stuSex;
+                    this.studentArr.push(newStu);
+                    this.initForm();
+                }else {
+                    alert("请输入完整");
+                }
+            },
+            modify(index){
+                document.getElementById("modifyStu").style.display="inline-block";
+                document.getElementById("addStu").style.display="none";
+                this.stuName=this.searchArr[index].name;
+                this.stuAge=this.searchArr[index].age;
+                this.stuSex=this.searchArr[index].sex;
+                var modifyStu=document.getElementById("modifyStu");
+                modifyStu.setAttribute("data-id",index);
+            },
+            modifyStu(){
+                var index=document.getElementById("modifyStu").getAttribute("data-id");
+                this.searchArr[index].name=this.stuName;
+                this.searchArr[index].age=this.stuAge;
+                this.searchArr[index].sex=this.stuSex;
+                this.initForm();
+            },
+            initForm(){
+                this.stuName="";
+                this.stuAge="";
+                this.stuSex="";
+                document.getElementById("modifyStu").style.display="none";
+                document.getElementById("addStu").style.display="inline-block";
+            }
+        },
+        //计算属性，当属性使用，必须通过函数返回数据
+        computed:{
+            getStudentBySearch(){
+                var search = this.searchName;
+                this.searchArr = [];
+                for(var i=0;i<this.studentArr.length;i++){
+                    if(this.studentArr[i].name.indexOf(search)>=0){
+                        this.searchArr.push(this.studentArr[i]);
+                    }
+                }
+                return this.searchArr;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
