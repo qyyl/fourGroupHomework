@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tbody:empty:after{
+            content:"暂无相关数据";
+        }
+        .hide{
+            display:none;
+        }
+        .show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="studentBox">
+    <table>
+        <input type="text" placeholder="搜索" v-model="searchName">
+        <thead>
+        <tr>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item,index) in getStudentListBySearch">
+                <td>{{item.stuName}}</td>
+                <td>{{item.stuAge}}</td>
+                <td>
+                    <button @click="getthisStuData(index)">修改</button>
+                    <button @click="del(index)">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <p>添加学生：</p>
+    <p>姓名：<input type="text" v-model="addStuName"></p>
+    <p>年龄：<input type="text" v-model="addStuAge"></p>
+    <p><button @click="addstu()">添加</button></p>
+    <hr>
+    <p>修改：</p>
+    <div id="zhezhao" class=""></div>
+    <div id="upstuBox" class="">
+        <p>姓名：<input type="text" v-model="upStuName"></p>
+        <p>年龄：<input type="text" v-model="upStuAge"></p>
+        <p><button @click="upStuData()">确定</button></p>
+    </div>
+</div>
+<script src="js/vue.js"></script>
+<script type="text/javascript">
+    var studentBox = new Vue({
+        el:"#studentBox",
+        data:{
+            studentList:[
+                {stuName:"天天",stuAge:18},
+                {stuName:"王文",stuAge:19},
+                {stuName:"有痕",stuAge:22},
+                {stuName:"蒋凯",stuAge:25},
+                {stuName:"吴佳家",stuAge:16},
+                {stuName:"陈良",stuAge:13},
+                {stuName:"王胜锋",stuAge:15},
+                {stuName:"舒俊",stuAge:27},
+                {stuName:"洛洛",stuAge:18},
+                {stuName:"小星星",stuAge:17},
+                {stuName:"大太阳",stuAge:19}
+            ],
+            searchName:"",
+            addStuName:"",
+            addStuAge: "",
+            upStuName:"",
+            upStuAge:"",
+            upindex:""
+        },
+        methods:{
+            del(index){
+                this.studentList.splice(index,1);
+            },
+            addstu(){
+                if(this.addStuName && this.addStuAge){
+                    var newstu = {stuName:this.addStuName,stuAge:this.addStuAge};
+                    this.studentList.push(newstu);
+                    this.addStuName = "";
+                    this.addStuAge = "";
+                }
+            },
+            getthisStuData(index){
+                this.upStuName = this.studentList[index].stuName;
+                this.upStuAge = this.studentList[index].stuAge;
+                this.upindex = index;
+//                console.log(this.upindex);
+            },
+            upStuData(){
+//                console.log(this.upindex);
+                this.studentList[this.upindex].stuName = this.upStuName;
+                this.studentList[this.upindex].stuAge = this.upStuAge;
+                this.upStuName="";
+                this.upStuAge="";
+                this.upindex="";
+            }
+        },
+        computed:{
+            getStudentListBySearch(){
+                var search = this.searchName;
+                var arr = [];
+                for(var i=0;i<this.studentList.length;i++){
+                    if(this.studentList[i].stuName.indexOf(search)>=0){
+                        arr.push(this.studentList[i]);
+                    }else {
+
+                    }
+                }
+                return arr;
+            }
+        }
+    })
+</script>
+</body>
+</html>
