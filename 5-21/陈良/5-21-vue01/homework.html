@@ -38,11 +38,13 @@
         </tbody>
     </table>
     <hr>
+    <!--添加学生-->
     <p>添加学生：</p>
     <p>姓名：<input type="text" v-model="addStuName"></p>
     <p>年龄：<input type="text" v-model="addStuAge"></p>
     <p><button @click="addstu()">添加</button></p>
     <hr>
+    <!--修改学生信息-->
     <p>修改：</p>
     <div id="zhezhao" class=""></div>
     <div id="upstuBox" class="">
@@ -80,6 +82,7 @@
             del(index){
                 this.studentList.splice(index,1);
             },
+//            添加学生方法
             addstu(){
                 if(this.addStuName && this.addStuAge){
                     var newstu = {stuName:this.addStuName,stuAge:this.addStuAge};
@@ -88,12 +91,14 @@
                     this.addStuAge = "";
                 }
             },
+//            获取要修改学生的信息
             getthisStuData(index){
                 this.upStuName = this.studentList[index].stuName;
                 this.upStuAge = this.studentList[index].stuAge;
                 this.upindex = index;
 //                console.log(this.upindex);
             },
+//            修改学生数组里面的信息
             upStuData(){
 //                console.log(this.upindex);
                 this.studentList[this.upindex].stuName = this.upStuName;
@@ -104,6 +109,7 @@
             }
         },
         computed:{
+//            搜索学生
             getStudentListBySearch(){
                 var search = this.searchName;
                 var arr = [];
@@ -117,7 +123,7 @@
                 return arr;
             }
         }
-    })
+    });
 </script>
 </body>
 </html>
