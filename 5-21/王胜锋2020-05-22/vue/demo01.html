@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tbody:empty:after{
+            content: "找不到这个龟儿，从新输名字";
+        }
+        table{
+            border: solid #ccc 1px;
+            border-radius: 6px;
+            box-shadow: 0 1px 1px #ccc;
+        }
+        table tr:hover {
+            background: #fbf8e9;
+            transition: all 0.1s ease-in-out;
+        }
+        table td, table th {
+            border-left: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        input{
+            padding: 3px;
+            margin-right: 10px;
+        }
+        #show{
+            position:fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top:0;
+            background-color: rgba(0,0,0,.5);
+        }
+        #shouText{
+            position: relative;
+            margin: 200px auto;
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            background-color: white;
+            text-align: center;
+        }
+        .show{
+            display:block;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>{{message}}</h1>
+    <hr>
+    <p><input v-model="searchName" type="text" placeholder="请输入学生姓名"></p>
+    <table>
+        <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item,index) in getStuListBySearch()">
+                <td>{{item.stuName}}</td>
+                <td>{{item.stuAge}}</td>
+                <td>{{item.stuSex}}</td>
+                <td><button @click="xiugai(index)">修改</button><button @click="delStu(index)">删除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <p>名字：<input type="text" id="newName" v-model="addName"></p>
+    <p>年龄：<input type="text"id="newAge" v-model="addAge"></p>
+    <p>性别：<input type="text" id="newSex" v-model="addSex"></p>
+    <p><button type="button" @click="newStu">添加</button></p>
+    <div id="show" class="hide">
+        <div id="shouText">
+            <p>姓名：<input type="text" name="xiugaiName" id="xiugaiName" v-model="xiugaiName"></p>
+            <p>年龄：<input type="text" name="xiugaiAge" id="xiugaiAge" v-model="xiugaiAge"></p>
+            <p>性别：<input type="text" name="xiugaiSex" id="xiugaiSex" v-model="xiugaiSex"></p>
+            <p><button type="button" id="quxiao" @click="yingcang()">取消</button><button type="button" id="baocun" @click="gaibian()">保存</button></p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            message:'学生列表',
+            student:[
+                {stuName:"张三",stuAge:18,stuSex:"男"},
+                {stuName:"李四",stuAge:28,stuSex:"女"},
+                {stuName:"王五",stuAge:19,stuSex:"男"},
+                {stuName:"赵六",stuAge:23,stuSex:"男"},
+                {stuName:"王七",stuAge:19,stuSex:"女"}
+            ],
+            xiugaiName:"",
+            xiugaiAge:"",
+            xiugaiSex:"",
+            addName:"",
+            addAge:"",
+            addSex:"",
+            upIndex:"",
+            searchName:""
+        },
+        methods:{
+            //删除
+            delStu(index) {
+                this.student.splice(index,1);
+            },
+            // 查询
+            getStuListBySearch(){
+                var search = this.searchName;
+                var arr=[];
+                for(var i = 0;i<this.student.length;i++){
+                    if(this.student[i].stuName.indexOf(search)>=0){
+                        arr.push(this.student[i]);
+                    }
+                }
+                return arr;
+            },
+            //修改
+            xiugai(index){
+                document.getElementById("show").setAttribute("class","show");
+                var obj = this.student[index];
+                this.xiugaiName= obj.stuName;
+                this.xiugaiAge=obj.stuAge;
+                this.xiugaiSex=obj.stuSex;
+                this.upIndex=index;
+            },
+            //修改框默认显示
+            gaibian(){
+                document.getElementById("show").setAttribute("class","hide");
+                this.student[this.upIndex].stuName=this.xiugaiName;
+                this.student[this.upIndex].stuAge=this.xiugaiAge;
+                this.student[this.upIndex].stuSex=this.xiugaiSex;
+                this.xiugaiName="";
+                this.xiugaiAge="";
+                this.xiugaiSex="";
+                this.upIndex="";
+            },
+            //模态框隐藏
+            yingcang(){
+                document.getElementById("show").setAttribute("class","hide");
+                this.xiugaiName="";
+                this.xiugaiAge="";
+                this.xiugaiSex="";
+                this.upIndex="";
+            },
+            //添加
+            newStu(){
+                var obj = {stuName:this.addName,stuAge:this.addAge,stuSex:this.addSex};
+                this.student.push(obj);
+                this.addName="";
+                this.addAge="";
+                this.addSex="";
+            }
+        }
+    });
+</script>
+</body>
+</html>
