@@ -69,8 +69,10 @@
                 this.studentArr.splice(index,1);
             },
             add:function () {
-                this.studentArr.push(this.addObj);
-                this.addObj = {};
+                if(this.addObj.name && this.addObj.sex && this.addObj.age){
+                    this.studentArr.push(this.addObj);
+                    this.addObj = {};
+                }
             },
             update:function (index) {
                 this.updataDisplay = true;
